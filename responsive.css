@@ -1,0 +1,123 @@
+/* navigation section */
+*{
+    margin: 0px;
+    padding: 0px;
+}
+
+
+#navbar{
+    flex-direction: column;
+}
+
+#logo img{
+    width: 95px;
+    height: 75px;
+    margin: 0px;
+    padding: 0px;
+}
+
+#navbar ul li{
+    margin-top: -14px;
+}
+
+#navbar ul li a{
+    color: black;
+    margin: -51px;
+    padding: 0px;
+    font-size: 10px;
+}
+
+
+
+
+/* Home section */
+
+#home
+{
+    padding: 0px;
+    margin: 0px; 
+}
+
+#heading1{
+    margin:19px;
+    padding: 0px;
+    font-size: 1.4rem;
+    /* border: 2px solid red; */
+    width: 350px;
+    border: none;
+    display: inline;
+}
+
+#home p{
+    margin-top: 8px;
+    font-size: 9px;
+    width: 300px;
+}
+
+#home::before{
+    height: 290px;
+    left: 0px;
+
+    /* width: 100%; */
+    right: 0px;
+
+}
+
+.btn{
+    margin-top: 20px;
+    padding: 0px;
+    font-size: 10px;
+    width: 112px;
+    height: 20px;
+}
+
+/* services section*/
+
+.box{
+    flex-direction: column;
+}
+
+/* about section */
+
+#about{
+    margin: 0px;
+    padding: 0px;
+}
+
+#heading3{
+    text-align: center;
+    /* width: 320px; */
+    margin: 0px;
+    margin-top: 10px;
+    padding: 0px;
+    margin-bottom: 10px;
+    border: none;
+    /* display: inline; */
+}
+
+#about p{
+    font-size: 12px;
+    width: 320px;
+}
+
+#about::before{
+    height: 176px;
+}
+
+/* contact section */
+#contact h2{
+    font-size: 17px;
+}
+
+#contact img{
+    display: none;
+}
+
+#contact p{
+    margin-top: 27px;
+    font-size: 12px;
+}
+
+#home::before{
+    overflow: hidden;
+}
