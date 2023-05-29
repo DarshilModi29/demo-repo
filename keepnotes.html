@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Notes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        body{
+            background-color: aliceblue;
+        }
+        body{
+            font-family: 'Raleway', sans-serif;
+        }
+        .container{
+            background-color: yellow;
+            display: flex;
+            margin-top:-8px;
+            margin-left : -8px;
+            width: 1422px;
+            height: 70px;
+        }
+        .container h1{
+            padding-left: 05px;
+            margin-top: 15px;
+        }
+        .container img{
+            width: 30px;
+            height: 30px;
+            margin-top: 20px;
+            margin-left: 30px;
+        }
+        .addnote{
+            /* position: absolute; */
+            /* right: 90px; */
+            font-weight: bold;
+            width: 100px;
+            height: 20px;
+            font-size: 1.1em;
+            margin-top: 5px;
+            margin-left:10px;
+            background-color: aliceblue;
+            border: none;
+            cursor: pointer;
+        }
+        .container-2 img{
+            width: 20px;
+            height: 20px;
+            /* position: absolute; */
+            right: 185px;
+            margin-top: 0px;
+            background-color: rgb(255, 255, 0);
+            border-radius: 20px;
+            padding: 5px;
+        }
+        /* .addnote:hover,.container-2:hover{
+            background-color: yellow;
+        } */
+        .container-2{
+            /* background-color: green; */
+            width: 145px;
+            height:30px;
+            right: 60px;
+            position: absolute;
+            display: flex;
+            margin-top: 30px;
+            padding: 5px;
+        }
+        .container-2:hover{
+            background-color: yellow;
+            border-radius: 20px;
+            transition: all 0.5s ease-in-out;
+            /* transform: translate(10px); */
+            .addnote,.img-2{
+                background-color: yellow;
+                transition: all 0.5s ease-in-out;
+                /* transform: translate(20px); */
+            }
+        }
+        .note{
+            background-color: #fff;
+            margin: 30px 20px;
+            height: 200px;
+            width: 400px;
+            overflow-y: scroll;
+            margin-top: 7rem;
+            display: inline-block;
+        }
+        .note .operation{
+            display: flex;
+            justify-content: flex-end;
+            padding: 0.5rem;
+        }
+        .note .operation button{
+            background-color: transparent;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-left: 0.5rem;
+        }
+        .note textarea{
+            outline: none;
+            font-size: 1.2rem;
+            border: none;
+            height: 300px;
+            width: 400px;
+            padding: 20px;
+        }
+        .fa-pen-to-square,
+        .fa-trash{
+            color: #fff;
+            padding: 10px;
+            background-color: #2ecc71;
+            border-radius: 50%;
+        }
+        .fa-trash{
+            background-color: crimson;
+        }
+        .fa-pen-to-square:hover{
+            background-color: #fff;
+            color: #2ecc71;
+        }
+        .fa-trash:hover{
+            background-color: #fff;
+            color: crimson;
+        }
+        .hidden{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="responsiveWebsite/folder-solid.svg" alt="Your Notes" class="img-1">
+        <div class="header"><h1>Your Notes</h1></div>
+    </div>
+
+    <div class="container-2">
+        <img src="responsiveWebsite/arrow-right-solid.svg" alt="addNote" class="img-2">
+        <button class="addnote" id="add">Add Note</button>
+    </div>  
+    <script>
+        const add = document.getElementById('add');
+
+        const localStorageData = () => {
+            const textareaData =document.querySelectorAll('#textarea');
+            const notes =[];
+            // console.log(textareaData);
+            textareaData.forEach((note) => {
+                return notes.push(note.value);
+            })
+
+            localStorage.setItem("notes", JSON.stringify(notes));
+        }
+
+        const addNote = (text = '') => {
+            const note = document.createElement('div');
+            note.classList.add('note');
+
+            const data = `<div class="operation">
+                            <button class="edit"> <i class="fa-solid fa-pen-to-square"></i> </button>
+                            <button class="delete"> <i class="fa-solid fa-trash"></i> </button>
+                        </div>
+                        <div class="main ${text ? "" : "hidden"}"> </div>
+                        <textarea class="${text ? "hidden" : ""}" id="textarea"></textarea>`;
+
+            note.insertAdjacentHTML('afterbegin',data);
+
+            const edit = note.querySelector('.edit');
+            const del = note.querySelector('.delete');
+            const main = note.querySelector('.main');
+            const textarea = note.querySelector('#textarea');
+
+            
+            del.addEventListener('click',() => {
+                note.remove()
+                localStorageData();
+            });
+            
+            textarea.value=text;
+            main.innerHTML=text;
+            
+            edit.addEventListener('click', () => {
+                main.classList.toggle('hidden');
+                textarea.classList.toggle('hidden');
+            });
+
+            textarea.addEventListener('change' , (event) => {
+                const value = event.target.value;
+                main.innerHTML = value;
+
+                localStorageData();
+            });
+
+            document.body.appendChild(note);
+
+        }
+
+        const notes = JSON.parse(localStorage.getItem('notes'));
+
+        if(notes){ 
+            notes.forEach((note) =>addNote(note));
+        
+        }
+
+
+        add.addEventListener('click',()=>addNote());
+    </script>
+</body>
+</html>
